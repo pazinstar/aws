@@ -25,11 +25,11 @@ SECRET_KEY = 'django-insecure-1e)%ky@k8ewzyvajj%)e3h$+^)t5e+h!zk)=xm$38xjw^2dxv&
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdL_tsoAAAAAOpWSFjHNdeQoQG4NjHSdGY_FHSi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = True
+# DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -147,6 +147,7 @@ JAZZMIN_SETTINGS = {
 
 RECAPTCHA_PUBLIC_KEY = '6Le2VR4pAAAAAILGmJFp72rI8gDp2GbOKgDmxQaH'
 RECAPTCHA_PRIVATE_KEY = '6Le2VR4pAAAAABIrkefiBP3tQ4AiGcD2-Z3jbzz_'
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
