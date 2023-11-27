@@ -1,0 +1,115 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<section class="vh-100 bg-image"
+style="background-image: url('{% static 'images/img4.webp'%}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+              
+              <form method="post" action="">
+                {% csrf_token %}
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example1cg">Username:</label>
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" name = "username" required>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example3cg">Your Email:</label>
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email" required>
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="country">Country:</label>
+                  <select class="form-control" id="country" name="country" required>
+                      <option value="" disabled selected>Select your country</option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="AU">Australia</option>
+                      <option value="DE">Germany</option>
+                      <option value="FR">France</option>
+                      <!-- Add more country options here -->
+                  </select>
+                </div>
+                <div class="form-group mb-4">
+                  <label for="phone">Phone Number:</label>
+                  <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example4cg">Password:</label>
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="pass1" required>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example4cdg">Repeat your password:</label>
+                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" name="pass2" required>
+                  {% for message in messages %}
+                        <!-- <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert"></div> -->
+                        <div class="alert_txt">{{ message }}
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button> -->
+                        </div>
+                    {% endfor %}
+                </div>
+
+               
+                {{captcha}} <br><br>
+                <div class="d-flex justify-content-center">
+                  <!-- <button type="button"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button> -->
+                    <input type="submit" name="createuser" id="" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                </div>
+                <p class="text-center">or:</p>
+                <div class="text-center mb-3">
+                    <p>Sign in with:</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                      <i class="fab fa-facebook-f"></i>
+                    </button>
+            
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                      <i class="fab fa-google"></i>
+                    </button>
+            
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                      <i class="fab fa-twitter"></i>
+                    </button>
+            
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                      <i class="fab fa-github"></i>
+                    </button>
+                  </div>
+            
+                  
+
+
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'signin' %}"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="path/to/intl-tel-input.js"></script>
+<script>
+    // Initialize the international telephone input plugin
+    $("#phone").intlTelInput({
+        preferredCountries: ['us', 'gb'], // Set your preferred countries
+        utilsScript: "path/to/utils.js" // Provide the path to the utils.js file
+    });
+</script>
+
+{% endblock content %}

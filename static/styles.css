@@ -1,0 +1,15 @@
+.card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow on hover */
+    transform: scale(1.05); /* Scale up the card on hover */
+    transition: box-shadow 0.3s, transform 0.3s; /* Add a smooth transition effect */
+}
+
+.child-div {
+    height: 100px; /* Set a fixed height for the child-div */
+    background-size: cover;
+    transition: opacity 0.3s; /* Add a smooth transition effect for opacity */
+}
+
+.child-div:hover {
+    opacity: 0.8; /* Reduce opacity on hover */
+}

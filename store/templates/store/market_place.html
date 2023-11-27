@@ -1,0 +1,36 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container bg-white">
+    <br><br>
+        <div class="container">
+           <div class="row">
+         <br><br>
+                <h2>Available Offers</h2>  <br>
+                {% for product in products %}
+                <div class="col">
+                    <div class="box-element product img_container">
+                        <div class="child-div"> <img class="thumb_nail_img" src="{{ product.imageURL }}" alt="">
+                        </div>
+                
+                    
+                    </div>
+                    
+                    <div class="box-element product">
+                        <h6><strong>{{ product.name }}</strong></h6>
+                        
+                        <!-- custom attributes product and action -->
+                            <a href="{% url 'checkout' %}"><button  class="btn btn-outline-secondary add-btn update-cart" data-product = "{{ product.id }}" data-action="add">Buy Now</button></a>
+                    <br><br>
+                        <a href="#" class="btn btn-outline-success update-cart" data-product = "{{ product.id }}" data-action="add" >Add to Cart</a>
+                        <h4 style="display: inline-block; ">$ {{ product.price|floatformat:2 }}</h4>
+                    </div><br><br>
+
+                </div>
+                {% endfor %}
+          
+            </div>
+        
+   </div>
+</div>
+{% endblock content %}
