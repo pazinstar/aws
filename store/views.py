@@ -322,33 +322,36 @@ def index_deposit(request):
 def process_payment(request):
     return redirect('myaccount')
 def signin(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        pass1 = request.POST['pass']
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            username = request.POST['username']
+            pass1 = request.POST['pass']
 
-        if "@" in username:
-            user = authenticate(request, email=username, password = pass1)
-            print(user)
-            print(type(username))
-        else:
-            user = authenticate(username=username, password = pass1)
-        if user is not None:
-            login(request, user)
-            fname = user.first_name
-            u_name = user.get_username()
-            email = user.email
-            pass1 = user.password
-            return redirect("home")
-        else:
-            messages.error(request, "Invalid Login Credentials")
-            return redirect("signin")
-    context = {'captcha':FormWithCaptcha,}
-    return render(request, 'store/signin.html', context)
+            if "@" in username:
+                user = authenticate(request, email=username, password = pass1)
+                print(user)
+                print(type(username))
+            else:
+                user = authenticate(username=username, password = pass1)
+            if user is not None:
+                login(request, user)
+                fname = user.first_name
+                u_name = user.get_username()
+                email = user.email
+                pass1 = user.password
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid Login Credentials")
+                return redirect("signin")
+        context = {'captcha':FormWithCaptcha,}
+        return render(request, 'store/signin.html', context)
+    else:
+        return redirect("home")
 
 def signout(request):
     logout(request)
     messages.success(request, "Logged out successfully")
-    return redirect("home")
+    return redirect("index")
 
 def reset_password(request):
     if request.method == 'POST':

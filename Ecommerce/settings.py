@@ -25,10 +25,10 @@ SECRET_KEY = 'django-insecure-1e)%ky@k8ewzyvajj%)e3h$+^)t5e+h!zk)=xm$38xjw^2dxv&
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdL_tsoAAAAAOpWSFjHNdeQoQG4NjHSdGY_FHSi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
-
+#ALLOWED_HOSTS = ['18.226.17.29','Localhost:800', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

@@ -79,19 +79,14 @@
                     {% else %}
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
+                                <a href="{% url 'signin' %}" class="btn btn-link" style="color: white;">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'signin' %}">Market Place</a>
+                                <a href="{% url 'signup' %}" class="btn btn-link" style="color: white;">Register</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'signin' %}">My activity</a>
-                            </li>
+                          
                         </ul>
-                        <div class="profile-data_main">
-                            <a href="{% url 'signin' %}" class="btn btn-link" style="color: white;">Login</a>
-                            <a href="{% url 'signup' %}" class="btn btn-link" style="color: white;">Register</a>
-                        </div>
+                        
                     {% endif %}
                 </div>
             </div>
