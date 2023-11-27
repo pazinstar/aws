@@ -51,9 +51,10 @@
     </style>
 
 </head>
-<body class="vh-100 bg-image gradient-custom-3" style="background-image: url('{% static 'images/img4.webp'%}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
-    <div class="mask d-flex align-items-center gradient-custom-3">
+<body style="background-image: url('{% static 'images/img4.webp'%}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+    <div>
     <div class="container mt-5" >
+        <div class="row">
         <div class="col-lg-6">
             <h1 class="text-center">Payment Details</h1>
             <form method="post" action="{% url 'process_payment' %}">
@@ -169,7 +170,8 @@
         </div>
         <!-- ----------------------------------------------------------------------------------------------------------------- -->
         
-    </form>
+    
+        </div>
     </div>
 </div>
     <script>
