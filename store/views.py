@@ -228,19 +228,19 @@ def signup(request):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        # if User.objects.filter(username = username):
-        #     messages.error(request, "Username already exists. Try another one")
-        #     return redirect("signup")
-        # if User.objects.filter(email = email):
-        #     messages.error(request, "email already exists")
-        #     return redirect("signup")
-        # if len(username)>10:
-        #     messages.error(request, "Username should not exceed 10 characters")
-        #     return redirect("signup")
+        if User.objects.filter(username = username):
+            messages.error(request, "Username already exists. Try another one")
+            return redirect("signup")
+        if User.objects.filter(email = email):
+            messages.error(request, "email already exists")
+            return redirect("signup")
+        if len(username)>10:
+            messages.error(request, "Username should not exceed 10 characters")
+            return redirect("signup")
         
-        # if pass1 != pass2:
-        #     messages.error(request, "Passwords didn't match")
-        #     return redirect("signup")
+        if pass1 != pass2:
+            messages.error(request, "Passwords didn't match")
+            return redirect("signup")
         
 
         myuser = User.objects.create_user(username, email, pass1)
