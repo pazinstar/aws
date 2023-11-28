@@ -18,6 +18,7 @@ urlpatterns = [
     path('deposit/', views.deposit, name ='first_time_payment'),
 
     path('deposit_test/', views.index_deposit, name ='deposit_test'),
+    path('activate/<str:uidb64>/<str:token>', views.activate, name ='activate'),
 
     path('process_payment/', views.process_payment, name ='process_payment'),
     path('get_items/', views.search, name ='search'),

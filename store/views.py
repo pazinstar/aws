@@ -9,7 +9,6 @@ import datetime
 from .my_captcha import FormWithCaptcha 
 
 import stripe
-import logging
 from coinbase_commerce.client import Client
 from coinbase_commerce.error import SignatureVerificationError, WebhookInvalidPayload
 from coinbase_commerce.webhook import Webhook
@@ -26,6 +25,11 @@ from django.core.serializers import serialize
 from django.http import JsonResponse
 from django.db.models.query import QuerySet
 from django.db.models import Model
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
 class DjangoJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, (Model, QuerySet)):
@@ -36,6 +40,13 @@ class DjangoJSONEncoder(json.JSONEncoder):
     
 from datetime import datetime
 from django.views.generic import View
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import generate_token
+from django.core.mail import EmailMessage, send_mail
+
 
 
 
@@ -217,23 +228,25 @@ def signup(request):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        if User.objects.filter(username = username):
-            messages.error(request, "Username already exists. Try another one")
-            return redirect("signup")
-        if User.objects.filter(email = email):
-            messages.error(request, "email already exists")
-            return redirect("signup")
-        if len(username)>10:
-            messages.error(request, "Username should not exceed 10 characters")
-            return redirect("signup")
+        # if User.objects.filter(username = username):
+        #     messages.error(request, "Username already exists. Try another one")
+        #     return redirect("signup")
+        # if User.objects.filter(email = email):
+        #     messages.error(request, "email already exists")
+        #     return redirect("signup")
+        # if len(username)>10:
+        #     messages.error(request, "Username should not exceed 10 characters")
+        #     return redirect("signup")
         
-        if pass1 != pass2:
-            messages.error(request, "Passwords didn't match")
-            return redirect("signup")
+        # if pass1 != pass2:
+        #     messages.error(request, "Passwords didn't match")
+        #     return redirect("signup")
         
 
         myuser = User.objects.create_user(username, email, pass1)
-     
+        myuser.is_active = False
+        myuser.save()
+        messages.success(request, "Your account has been successfully created. Confirm your email to activate account.")
         customer = Customer(
                             user = myuser,
                             name=myuser,
@@ -241,14 +254,84 @@ def signup(request):
                             balance = 0
         )
         customer.save()
+            
+        sender = settings.EMAIL_HOST_USER
+        recipient = email
+        current_site = get_current_site(request)
+        # name = username
+        # domain = current_site.domain
+        # uid = urlsafe_base64_encode(force_bytes(myuser.pk))
+        # token = generate_token.make_token(myuser)
+
+        subject = "Welcome to Secret Hackers CLub Ecommerce"
+        msgtext = f"""
+            Hello {username}, 
+            Welcome to Darksales Secret Hackers Club Ecommerce platform
+
+            Regards,
+            Darksales SHC Team
+
+        """
+        msg2 = render_to_string('store/email_confirmation.html', {
+            'name': username,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
+            'token': generate_token.make_token(myuser),
+        })
+        # email = EmailMessage(
+        #     subject,
+        #     msg2,
+        #     sender,
+        #     [email],
+
+        # )
+        # # email.attach_alternative(msg2, "text/html")
+        # email.send(fail_silently = True)
+
+        # msg = MIMEText(msgtext)
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = sender
+        msg['To'] = recipient
+
+        text_part = MIMEText('Plain text version of the message', 'plain')
+        html_part = MIMEText(msg2, 'html')
+
+        msg.attach(text_part)
+        msg.attach(html_part)
+
+        server = smtplib.SMTP_SSL(settings.EMAIL_HOST, 465)
+
+        server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+        server.sendmail(sender, [recipient], msg.as_string())
+        
+        # server.sendmail(sender, [recipient], email)
+        # server.send_message(email)
+        server.quit()
+
+
         user = authenticate(request, email=email, password = pass2)
-        login(request, user)
+        # login(request, user)
         if customer.balance == 0:
             return redirect('first_time_payment')
         return redirect("signin")
 
     context = {'captcha':FormWithCaptcha,}
     return render(request, 'store/signup.html', context)
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        myuser = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        myuser = None
+    if myuser is not None and generate_token.check_token(myuser, token):
+        myuser.is_active = True
+        myuser.save()
+        login(request, myuser)
+        return redirect('first_time_payment')
+    else:
+        return render(request, 'store/activation_failed.html')
 
 def deposit(request): 
     if not request.user.is_authenticated:
