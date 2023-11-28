@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from .info import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,6 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-1e)%ky@k8ewzyvajj%)e3h$+^)t5e+h!zk)=xm$38xjw^2dxv&'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdL_tsoAAAAAOpWSFjHNdeQoQG4NjHSdGY_FHSi'
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_PORT = EMAIL_PORT
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -145,13 +150,13 @@ JAZZMIN_SETTINGS = {
     'copyright': "SHC.com"
 }
 
-RECAPTCHA_PUBLIC_KEY = '6LeeoR4pAAAAAPW9-76R9Fy9YbvakXokSViX0yzn'
-RECAPTCHA_PRIVATE_KEY = '6LeeoR4pAAAAAGV75Sm96Pt6CXOJBVVlpKRmI9vb'
+RECAPTCHA_PUBLIC_KEY = RECAPTCHA_PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = RECAPTCHA_PRIVATE_KEY
 
-RECAPTCHA_REQUIRED_SCORE = 0.85
+RECAPTCHA_REQUIRED_SCORE = RECAPTCHA_REQUIRED_SCORE
 
-STRIPE_PUBLIC_KEY = 'pk_test_51O9QrLA3uxThpfeVCxhYB8lhBTkTCK7hvry4nc5tsqJBwXOmQsDDKBfLgxs96YJYWB6IcSE1HrJW8J9xG82tjRVx00W6mMFW7b'
+STRIPE_PUBLIC_KEY = STRIPE_PUBLIC_KEY
 
-STRIPE_SECRET_KEY = 'sk_test_51O9QrLA3uxThpfeVwaAgaHUSbbtgTUuDkxbVcv07IgO8rCbeV32tY1pd2qGTsXFgJN2gYUI7URdMNh5UYIwdzFXd00N3Gjde8v'
+STRIPE_SECRET_KEY = STRIPE_SECRET_KEY
 
-COINBASE_COMMERCE_API_KEY = '6a563bb8-f7cf-4178-92db-5008811153cd'
+COINBASE_COMMERCE_API_KEY = COINBASE_COMMERCE_API_KEY
