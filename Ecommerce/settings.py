@@ -26,9 +26,11 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LdL_tsoAAAAAOpWSFjHNdeQoQG4NjHSdGY_FHSi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = ['18.226.17.29','Localhost:800', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
-#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com']
+# ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -143,8 +145,8 @@ JAZZMIN_SETTINGS = {
     'copyright': "SHC.com"
 }
 
-RECAPTCHA_PUBLIC_KEY = '6LdnOtwoAAAAADAOrX97ng4EHHluUC0vt2igkngQ'
-RECAPTCHA_PRIVATE_KEY = '6LdnOtwoAAAAAFx5gYebrgTZTq5UFdnDcocbc6Ir'
+RECAPTCHA_PUBLIC_KEY = '6LeeoR4pAAAAAPW9-76R9Fy9YbvakXokSViX0yzn'
+RECAPTCHA_PRIVATE_KEY = '6LeeoR4pAAAAAGV75Sm96Pt6CXOJBVVlpKRmI9vb'
 
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
