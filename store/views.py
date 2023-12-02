@@ -337,7 +337,7 @@ def deposit(request):
         amount = request.POST['amount']
         print(amount)
     client = Client(api_key=settings.COINBASE_COMMERCE_API_KEY)
-    domain_url = 'http://localhost:8000/'
+    domain_url = 'https://www.darksales-shc.com/'
     product = {
         # info to capture in webhook
             'metadata': {
