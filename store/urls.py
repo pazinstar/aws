@@ -22,4 +22,5 @@ urlpatterns = [
 
     path('process_payment/', views.process_payment, name ='process_payment'),
     path('get_items/', views.search, name ='search'),
+    path('webhook/', views.coinbase_webhook),
 ]  

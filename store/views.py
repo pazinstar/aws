@@ -3,18 +3,15 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 import datetime  
 from .my_captcha import FormWithCaptcha 
-
 import stripe
 from coinbase_commerce.client import Client
 from coinbase_commerce.error import SignatureVerificationError, WebhookInvalidPayload
 from coinbase_commerce.webhook import Webhook
-
 from django.urls import reverse
-
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 #admin charts
@@ -46,7 +43,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from .tokens import generate_token
 from django.core.mail import EmailMessage, send_mail
-
+import logging
 
 
 
@@ -342,6 +339,7 @@ def deposit(request):
     client = Client(api_key=settings.COINBASE_COMMERCE_API_KEY)
     domain_url = 'http://localhost:8000/'
     product = {
+        # info to capture in webhook
             'metadata': {
             'customer_id': request.user.id if request.user.is_authenticated else None,
             'customer_username': request.user.username if request.user.is_authenticated else None,
@@ -380,6 +378,32 @@ def deposit(request):
     logout(request)
     return render(request, 'store/deposit.html', context)
 
+@csrf_exempt
+@require_http_methods(['POST'])
+def coinbase_webhook(request):
+    logger = logging.getLogger(__name__)
+
+    request_data = request.body.decode('utf-8')
+    request_sig = request.headers.get('X-CC-Webhook-Signature', None)
+    webhook_secret = settings.COINBASE_COMMERCE_WEBHOOK_SHARED_SECRET
+
+    try:
+        event = Webhook.construct_event(request_data, request_sig, webhook_secret)
+
+        # List of all Coinbase webhook events:
+        # https://commerce.coinbase.com/docs/api/#webhooks
+
+        if event['type'] == 'charge:confirmed':
+            logger.info('Payment confirmed.')
+            customer_id = event['data']['metadata']['customer_id'] 
+            customer_username = event['data']['metadata']['customer_username']
+            print(">>>>>>>>>>>: ", customer_username)
+
+    except (SignatureVerificationError, WebhookInvalidPayload) as e:
+        return HttpResponse(e, status=400)
+
+    logger.info(f'Received event: id={event.id}, type={event.type}')
+    return HttpResponse('ok', status=200)
 
 def index_deposit(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
