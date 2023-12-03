@@ -40,8 +40,7 @@ class DjangoJSONEncoder(json.JSONEncoder):
         elif isinstance(obj, datetime.datetime):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
         return super(DjangoJSONEncoder, self).default(obj)
-    
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> | Rendered templates | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 # ------------------------------------------Index start---------------------------------------------------------------
 
 company_name = "Darksales-SHC"
@@ -429,8 +428,6 @@ def checkout(request):
     return render(request, 'store/checkout.html', context)
 # ------------------------------------------checkout End---------------------------------------------------------------
 
-
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> | Finances (Accounts) | >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ------------------------------------------deposit start---------------------------------------------------------------
 def deposit(request):
     if not request.user.is_authenticated:
@@ -494,7 +491,6 @@ def process_payment(request):
     return redirect('myaccount')
 # ------------------------------------------process_payment End---------------------------------------------------------------
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> | WEBHOOK |<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 # ------------------------------------------coinbase_webhook start---------------------------------------------------------------
 
 @csrf_exempt
@@ -519,13 +515,10 @@ def coinbase_webhook(request):
             logger.info('Payment confirmed.')
             customer_id = event['data']['metadata']['customer_id'] 
             customer_username = event['data']['metadata']['customer_username']
-            
+
     logger.info(f'Received event: id={event.id}, type={event.type}')
     return HttpResponse('ok', status=200)
-# ------------------------------------------coinbase_webhook End---------------------------------------------------------------
-
-
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> | HTTP Responses | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# ------------------------------------------coinbase_webhook End--------------------------------------------------------------
 # ------------------------------------------activate start---------------------------------------------------------------
 def activate(request, uidb64, token):
     try:
@@ -602,7 +595,6 @@ def search(request):
 # ------------------------------------------search end---------------------------------------------------------------
 
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> | Items processing | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 # ------------------------------------------process_order start---------------------------------------------------------------
 def process_order(request):
     data = json.loads(request.body)
