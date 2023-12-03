@@ -511,12 +511,10 @@ def coinbase_webhook(request):
 
     try:
         event = Webhook.construct_event(request_data, request_sig, webhook_secret)
-
         if event['type'] == 'charge:confirmed':
             logger.info('Payment confirmed.')
             customer_id = event['data']['metadata']['customer_id'] 
             customer_username = event['data']['metadata']['customer_username']
-            # print(">>>>>>>>>>>: ", customer_username)
 
     except (SignatureVerificationError, WebhookInvalidPayload) as e:
         return HttpResponse(e, status=400)
