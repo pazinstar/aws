@@ -33,7 +33,7 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 DEBUG = False
 # DEBUG = True
 
-ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://www.darksales-shc.com', 'localhost']
+ALLOWED_HOSTS = ['18.226.17.29', 'darksales-shc.com', 'www.darksales-shc.com', 'https://darksales-shc.com', 'https://www.darksales-shc.com', 'localhost']
 
 
 

@@ -1,11 +1,29 @@
-
-.card:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow on hover */
-    transform: scale(1.05); /* Scale up the card on hover */
-    transition: box-shadow 0.3s, transform 0.3s; /* Add a smooth transition effect */
-    cursor: pointer;
+body{
+    overflow-x: hidden;
 }
-
+/* .card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow on hover */
+    /* transform: scale(1.05);  */
+    /* transition: box-shadow 0.3s, transform 0.3s;  */
+    /* cursor: pointer; */
+/* }  */
+.indx h1{
+    text-align: center;
+}
+.homepage_banner nav{
+    position: relative;
+    top: -90px;
+}
+/* .homepage_banner nav{
+    position: -webkit-sticky; /* Safari */
+    /* position: sticky; */
+    /* top: 0; */
+    /* background-color: green; */
+    /* border: 2px solid #4CAF50; */
+/* } */
+.indx a h6{
+    margin: 0 auto;
+}
 .child-div {
     height: 100px; /* Set a fixed height for the child-div */
     background-size: cover;
@@ -36,17 +54,38 @@
 }
 
 /* Not responsive on mobile */
-
+.bs_im{
+    display: block;
+    margin: auto;
+}
 .base_image{
+    width: 100%;
     overflow: hidden;
     padding-left: 30%;
 }
-
+.card_custom{
+    border-radius: 10px;
+}
+.card_custom h5{
+    text-align: center;
+}
+.card_custom p{
+    text-align: center;
+}
 .base_image img{
     height: 200px;
     width: 200px;
 }
-
+.about_content{
+    width: 80%;
+    margin: 0 auto;
+}
+.col img{
+    border-radius: 50%;
+}
+footer{
+    background-color: rgb(190, 46, 46);
+}
 /* Ensure the child cards are displayed in a row and are horizontally scrollable */
 .d-flex.flex-row.flex-nowrap {
     display: flex;
@@ -180,4 +219,166 @@ img {
     color: white; 
     min-width: 150px;
     min-height: 180px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 'border-box';
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.landing_page{
+    position: relative;
+    width: 100%;
+    height: 700px;
+    /* background-color: #000; */
+    background-image: url('https://th.bing.com/th/id/R.5382c9b4f10fa931f30617be181488e6?rik=T%2beYGhKg0in7hg&riu=http%3a%2f%2fwww.milehighonthecheap.com%2flotc-cms%2fwp-content%2fuploads%2f2011%2f11%2fgift-card.jpg&ehk=Xr1hPCJZz9%2fxSJi%2b%2but1utUCSUTZvBigyyl4G2CkXI8%3d&risl=&pid=ImgRaw&r=0');
+    background-size: cover;
+    background-position: center;
+}
+.landing_page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Adjust the opacity here */
+}
+  
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover{
+    color: crimson;
+}
+
+/* Header */
+header{
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar{
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+}
+
+.navbar .logo a{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .links{
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .toggle_btn{
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.action_btn{
+    background-color: crimson;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.action_btn:hover{
+    scale: 1.05;
+    color: #fff;
+}
+
+.action_btn:active{
+    scale: 0.95;
+}
+
+.dropdown_menu{
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    width: 300px;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.dropdown_menu.open{ 
+    height: auto;
+}
+.dropdown_menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section#hero{
+    position: absolute;
+    top: 20%;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: top;
+    /* color: #fff; */
+}
+
+#hero h1{
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .navbar .links,
+    .navbar .action_btn{
+        display: none;
+    }
+
+    .navbar .toggle_btn{
+        display: block;
+    }
+    .dropdown_menu{
+        display: block;
+    }
+}
+
+@media (max-width: 578px) {
+    .dropdown_menu{
+        left: 2rem;
+        width: unset;
+    }
 }

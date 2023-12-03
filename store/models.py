@@ -3,13 +3,17 @@ from django.contrib.auth.models import User
 
 class Customer(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-    balance = models.FloatField()
+    name = models.CharField(max_length=200, null=True, editable=False)
+    email = models.CharField(max_length=200, null=True, editable=False)
+    balance = models.FloatField(editable=False)
+    isNew = models.BooleanField(default=True, editable=False)
+    isExisting = models.BooleanField(default=False, editable=False)
+    isVerified = models.BooleanField(default=False, editable=False)
+    
 
     def __str__(self):
         return self.name 
-     
+    
 class product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
@@ -28,7 +32,7 @@ class product(models.Model):
         except:
             url = ''
         return url
-      
+    
 class Flash_Sales(models.Model):
     cardName=models.CharField(max_length=50)
     ImageUrl=models.URLField()
@@ -39,8 +43,8 @@ class Flash_Sales(models.Model):
     def __str__(self):
         return self.cardName
     
-class History():
-    pass
+# class History():
+#     pass
 
 class Transactions(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -49,8 +53,7 @@ class Transactions(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-
+    
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
@@ -72,7 +75,7 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
         return total
-    
+
 #  Single order several items
 class OrderItem(models.Model):
     product = models.ForeignKey(product, on_delete=models.SET_NULL, blank=True, null=True)
@@ -89,8 +92,6 @@ class OrderItem(models.Model):
         return total
     
 
-
-    #charts
 class line_chart(models.Model):
     label = models.CharField(max_length=50)
     value = models.FloatField()
@@ -109,3 +110,4 @@ class pie_chart(models.Model):
     
     def _str_(self):
       return self.brand
+

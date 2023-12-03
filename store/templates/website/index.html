@@ -1,0 +1,105 @@
+{% extends "website/base.html" %} 
+{% load static %}
+{% block content %}
+<!-- Body content for the home page goes here -->
+<br>
+<div class="container">     
+  <div class="row">
+      <div class="row">
+        <div style="display: flex; align-items: center;">
+            <h3 class=" col font-weight-bold">Flash sales: </h3>
+            <p style="margin-top: 15px;" id="demo"></p>
+        </div>
+      </div><br>
+      <div class="row">
+          <div class="d-flex flex-row  flex-nowrap">
+            {% for item in Flash_cards %}
+              <div  class="card card-body shadow p-3  mb-5 bg-body rounded" > 
+                    <h5 style="font-weight: bold; color: blue;"> {{item.cardName}}</h5> 
+                    <div class="background-image" style="background-image: url('{{ item.ImageUrl}}'); background-position: center; ">
+                    </div>
+
+                    <p class="discountSaved"> Save: {{item.discount}}%</p>
+                    <h6 style="font-weight: bolder; color: rgb(87, 78, 211);"> Price: {{item.price}}</h6> 
+                    <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+              </div>
+            {% endfor %}
+
+          </div>
+      </div>
+  </div>
+</div>
+<div class="container">
+    <div class="indx">
+        <h1>Find the Perfect Gift Card</h1>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2">
+          <div class="card mb-sm-2">
+            <img style="max-height: 200px" src="https://th.bing.com/th/id/OIP.en655K1xLigDq0CKquLJRgHaD4?w=345&h=181&c=7&r=0&o=5&dpr=1.1&pid=1.7" class="card-img-top" alt="Gift Card 3">
+            <div class="card-body pb-sm-2">
+                <h5 class="card-title">Amazon</h5>
+                <p class="card-text">Surprise someone with this delightful gift card.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary" >Buy Now</a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2">
+          <div class="card">
+            <img style="max-height: 200px;" src="https://1.bp.blogspot.com/-MgCio8umYLA/XoxGZVzA4YI/AAAAAAAAAEU/Xe-_Vn2gQ8cHBEnd9DH2GhBInsmoEx7WwCLcBGAsYHQ/s320/walmart-gift-card-png-17.png"  alt="Gift Card 1">
+            <div class="card-body">
+                <h5 class="card-title">Walmart</h5>
+                <p class="card-text">Perfect for birthdays and special occasions.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2">
+          <div class="card">
+            <img style="max-height: 200px;" src="https://assets1.csnews.com/files/styles/primary_articles_short/s3/GiftCard.jpg?itok=TFFLaTwC" class="card-img-top" alt="Gift Card 2">
+            <div class="card-body">
+                <h5 class="card-title">Lovely</h5>
+                <p class="card-text">A thoughtful gift for your loved.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" style="justify-content: center;">
+      <div class="col-8 text-center">
+          <h5 class="lead" style="text-align: center;">Shop from a variety of gift cards available on our platform</h5>
+        <a class="btn btn-primary mt-3"href="{% url 'signin' %}">Market place</a>
+      </div>
+    </div>
+</div>
+<br>
+<script>
+    var countDownDate = new Date("Dec 25, 2023 15:37:25").getTime();
+
+var x = setInterval(function() {
+
+  var now = new Date().getTime();
+
+  var distance = countDownDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("demo").innerHTML ="Offer ends in: "+ days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+{% endblock %}
