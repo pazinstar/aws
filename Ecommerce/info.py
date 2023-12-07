@@ -1,8 +1,9 @@
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.zoho.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'info@darksales-shc.com'
-EMAIL_HOST_PASSWORD = '%20_@Rho-120'
+EMAIL_HOST_USER = 'lwagajoel1100@gmail.com'
+EMAIL_HOST_PASSWORD = 'xrcv iisc yjqs vsal'
 
 RECAPTCHA_PUBLIC_KEY = '6LeeoR4pAAAAAPW9-76R9Fy9YbvakXokSViX0yzn'
 RECAPTCHA_PRIVATE_KEY = '6LeeoR4pAAAAAGV75Sm96Pt6CXOJBVVlpKRmI9vb'

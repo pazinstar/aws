@@ -1,112 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gift Cards Shop</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom styles -->
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    .navbar {
-      background-color: #343a40;
-    }
+.mobile-container {
+  max-width: 480px;
+  margin: auto;
+  background-color: #555;
+  height: 500px;
+  color: white;
+  border-radius: 10px;
+}
 
-    .navbar-brand, .navbar-nav .nav-link {
-      color: #ffffff;
-    }
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  position: relative;
+}
 
-    .hero-section {
-      background: url('https://th.bing.com/th/id/R.59d43d015fc576288303e639db0f3655?rik=5RIZqHEGoycWaA&riu=http%3a%2f%2frivercitypilates.com%2fwp-content%2fuploads%2f2014%2f05%2fGIFT-CARD-image1.jpg&ehk=lZFpY%2fxnzLp9x%2fcsOmk54jKZ%2fZvGNhkUH5HfECVsxIU%3d&risl=1&pid=ImgRaw&r=0') center/cover no-repeat;
-      color: #ffffff;
-      text-align: center;
-      padding: 100px 0;
-    }
+.topnav #myLinks {
+  display: none;
+}
 
-    .card {
-      margin-bottom: 20px;
-    }
-  </style>
+.topnav a {
+  float: left;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a.icon {
+  float: right;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+</style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">Gift Cards</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Shop</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- Simulate a smartphone / tablet look -->
+<div class="mobile-container">
 
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <h1 class="display-4">Find the Perfect Gift Card</h1>
-    <p class="lead">Explore a variety of gift cards for every occasion.</p>
-    <a class="btn btn-primary btn-lg" href="#">Shop Now</a>
-  </div>
+<!-- Top Navigation Menu -->
+<div class="topnav">
 
-  <!-- Featured Gift Cards -->
-  <div class="container">
-    <div class="row">
-      <!-- Card 1 -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://th.bing.com/th/id/R.59d43d015fc576288303e639db0f3655?rik=5RIZqHEGoycWaA&riu=http%3a%2f%2frivercitypilates.com%2fwp-content%2fuploads%2f2014%2f05%2fGIFT-CARD-image1.jpg&ehk=lZFpY%2fxnzLp9x%2fcsOmk54jKZ%2fZvGNhkUH5HfECVsxIU%3d&risl=1&pid=ImgRaw&r=0"  alt="Gift Card 1">
-          <div class="card-body">
-            <h5 class="card-title">Gift Card 1</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Buy Now</a>
-          </div>
-        </div>
-      </div>
-      <!-- Card 2 -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://example.com/gift-card2.jpg" class="card-img-top" alt="Gift Card 2">
-          <div class="card-body">
-            <h5 class="card-title">Gift Card 2</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Buy Now</a>
-          </div>
-        </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="https://example.com/gift-card3.jpg" class="card-img-top" alt="Gift Card 3">
-          <div class="card-body">
-            <h5 class="card-title">Gift Card 3</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Buy Now</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
 
-  <!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- End smartphone / tablet look -->
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+
 </body>
 </html>

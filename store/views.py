@@ -82,7 +82,7 @@ def dashboard(request):
         'current_year':current_year, 
         'CartItems':cartItems
     }
-    return render(request, 'store/dashboard2.html', context)
+    return render(request, 'store/dashboard.html', context)
 # ------------------------------------------Dashboard End---------------------------------------------------------------
 
 # ------------------------------------------Signup start---------------------------------------------------------------
@@ -175,83 +175,81 @@ def signup(request):
 
 
 def signin(request):
-    if not request.user.is_authenticated:
+           
+    if request.method == 'POST':
+            
+        username = request.POST['username']
+        pass1 = request.POST['pass']
         
-        if request.method == 'POST':
-            
-            username = request.POST['username']
-            pass1 = request.POST['pass']
-         
-            recaptcha_response = request.POST.get('g-recaptcha-response', None)
-            if not recaptcha_response:
-                messages.error(request, "Please complete the ReCaptcha!")
+        recaptcha_response = request.POST.get('g-recaptcha-response', None)
+        if not recaptcha_response:
+            messages.error(request, "Please complete the ReCaptcha!")
+            return redirect("signin")
+        
+        if "@" in username:
+            if not User.objects.filter(email = username):
+                messages.error(request, 'email not found!')
                 return redirect("signin")
-            
-            if "@" in username:
-                if not User.objects.filter(email = username):
-                    messages.error(request, 'email not found!')
-                    return redirect("signin")
-                user = authenticate(request, email=username, password = pass1)
-                # print(user)
-                # print(type(username))
+            user = authenticate(request, email=username, password = pass1)
+            # print(user)
+            # print(type(username))
+        else:
+            if not User.objects.filter(username = username):
+                messages.error(request, 'Username not found!')
+                return redirect("signin")
+            user = authenticate(username=username, password = pass1)
+        if user is not None:
+            print("<<<>>> : ",request.user.customer.isVerified)
+            login(request, user)
+            fname = user.first_name
+            u_name = user.get_username()
+            email = user.email
+            pass1 = user.password
+            customer = user.customer
+            is_new = customer.isNew
+            is_verified = customer.isVerified
+
+            if not is_verified:
+                sender = settings.EMAIL_HOST_USER
+                recipient = email
+                current_site = get_current_site(request)
+                subject = "Confirmation of Your Account"
+
+                msg2 = render_to_string('store/email_confirmation.html', {
+                    'name': username,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
+                    'token': generate_token.make_token(myuser),
+                })
+                msg = MIMEMultipart('alternative')
+                msg['Subject'] = subject
+                msg['From'] = sender
+                msg['To'] = recipient
+                text_part = MIMEText('Plain text version of the message', 'plain')
+                html_part = MIMEText(msg2, 'html')
+                msg.attach(text_part)
+                msg.attach(html_part)
+                server = smtplib.SMTP_SSL(settings.EMAIL_HOST, 465)
+                server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                server.sendmail(sender, [recipient], msg.as_string())
+                server.quit()
+                messages.success(request, "Confirmation link sent to your email!")
+                return redirect("signin")
             else:
-                if not User.objects.filter(username = username):
-                    messages.error(request, 'Username not found!')
-                    return redirect("signin")
-                user = authenticate(username=username, password = pass1)
-            if user is not None:
-                print("<<<>>> : ",request.user.customer.isVerified)
-                login(request, user)
-                fname = user.first_name
-                u_name = user.get_username()
-                email = user.email
-                pass1 = user.password
-                customer = user.customer
-                is_new = customer.isNew
-                is_verified = customer.isVerified
-
-                if not is_verified:
-                    sender = settings.EMAIL_HOST_USER
-                    recipient = email
-                    current_site = get_current_site(request)
-                    subject = "Confirmation of Your Account"
-
-                    msg2 = render_to_string('store/email_confirmation.html', {
-                        'name': username,
-                        'domain': current_site.domain,
-                        'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
-                        'token': generate_token.make_token(myuser),
-                    })
-                    msg = MIMEMultipart('alternative')
-                    msg['Subject'] = subject
-                    msg['From'] = sender
-                    msg['To'] = recipient
-                    text_part = MIMEText('Plain text version of the message', 'plain')
-                    html_part = MIMEText(msg2, 'html')
-                    msg.attach(text_part)
-                    msg.attach(html_part)
-                    server = smtplib.SMTP_SSL(settings.EMAIL_HOST, 465)
-                    server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-                    server.sendmail(sender, [recipient], msg.as_string())
-                    server.quit()
-                    messages.success(request, "Confirmation link sent to your email!")
-                    return redirect("signin")
-                else:
-                    if is_new:
-                        return redirect("first_time_payment")
+                if is_new:
+                    return redirect("first_time_payment")
+                
                     
-                        
-                return redirect("home")
-            else:
-                messages.error(request, "Invalid Login Credentials")
-                return redirect("signin")
-        context = {
+            return redirect("home")
+        else:
+            messages.error(request, "Invalid Login Credentials")
+            return redirect("signin")
+    context = {
             'captcha':FormWithCaptcha
             }
-        return render(request, 'store/signin.html', context)
-    else:
-        # return redirect("dashboard")
-        return redirect("signin")
+    return render(request, 'store/signin.html', context)
+ 
+    return redirect("signin")
 
 # ------------------------------------------Signin end--------------------------------------------------------------------
 # ------------------------------------------Signout end--------------------------------------------------------------------
@@ -294,24 +292,24 @@ def market_place(request):
 def activity(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        # transact = transactions.get(customer=customer)
+        transact = transactions.get(customer=customer)
         transactions = Order.objects.filter(customer=customer, complete = True)
         order, created = Order.objects.get_or_create(customer=customer, complete = False)
         cartItems = order.get_cart_items
     else:
         cartItems = 0
-
+        
     context = {
         'transactions': transactions,
         'company_name': company_name, 
         'CartItems': cartItems
     }
-    return render(request, 'store/activity.html', context)
+    return render(request, 'store/myactivity.html', context)
 # ------------------------------------------Activity end---------------------------------------------------------------
 
 # ------------------------------------------Account start---------------------------------------------------------------
 def account(request):
-    if not request.user.is_authenticated:
+    if  request.user.is_authenticated:
         return redirect('signin')
 
     if request.user.is_authenticated:
@@ -326,7 +324,7 @@ def account(request):
         'company_name': company_name, 
         'CartItems': cartItems
     }
-    return render(request, 'store/account.html', context)
+    return render(request, 'store/myaccount.html', context)
 # ------------------------------------------Account End---------------------------------------------------------------
 
 # ------------------------------------------reset_password start---------------------------------------------------------------
@@ -430,6 +428,7 @@ def checkout(request):
 
 # ------------------------------------------deposit start---------------------------------------------------------------
 def deposit(request):
+    
     if not request.user.is_authenticated:
         return redirect('signin')
     if request.method == 'POST':

@@ -1,12 +1,63 @@
 body{
     overflow-x: hidden;
 }
-/* .card:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow on hover */
-    /* transform: scale(1.05);  */
-    /* transition: box-shadow 0.3s, transform 0.3s;  */
-    /* cursor: pointer; */
-/* }  */
+.word {
+    margin: auto;
+    color: white;
+    font: 700 normal 2.5em 'tahoma';
+    text-shadow: 5px 2px #222324, 2px 4px #222324, 3px 5px #222324;
+  }
+
+#animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #171817 0%,
+    #30fa08 29%,
+    #f30a58 67%,
+    #ecece3 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      
+}
+ /* CARD, Dashbord */
+
+ #Flash_cards:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+    transform: scale(1.05);  
+    transition: box-shadow 0.3s, transform 0.3s;  
+    cursor: pointerr; 
+ }
+
+
+#giftcards:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+    transform: scale(1.05);  
+    transition: box-shadow 0.3s, transform 0.3s;  
+    cursor: pointerr; 
+ }
+ #giftcards{
+    padding: 10px; 
+    margin: 10px;
+    width: 400px;
+}
+.col img{
+    max-height: 160px;
+    width: 260px;
+    padding: 10px;
+    align-self: center;
+    display: block;
+}
 .indx h1{
     text-align: center;
 }
@@ -23,11 +74,6 @@ body{
 /* } */
 .indx a h6{
     margin: 0 auto;
-}
-.child-div {
-    height: 100px; /* Set a fixed height for the child-div */
-    background-size: cover;
-    transition: opacity 0.3s; /* Add a smooth transition effect for opacity */
 }
 
 .child-div:hover {
@@ -80,7 +126,7 @@ body{
     width: 80%;
     margin: 0 auto;
 }
-.col img{
+.footer_image{
     border-radius: 50%;
 }
 footer{
@@ -209,17 +255,6 @@ img {
     
 }
 
-/*gift cards*/
-.child-div {
-    margin: 0px;
-    padding: 0px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white; 
-    min-width: 150px;
-    min-height: 180px;
-}
 
 *{
     margin: 0;
@@ -231,12 +266,15 @@ img {
 .landing_page{
     position: relative;
     width: 100%;
-    height: 700px;
+    height: 500px;
     /* background-color: #000; */
     background-image: url('https://th.bing.com/th/id/R.5382c9b4f10fa931f30617be181488e6?rik=T%2beYGhKg0in7hg&riu=http%3a%2f%2fwww.milehighonthecheap.com%2flotc-cms%2fwp-content%2fuploads%2f2011%2f11%2fgift-card.jpg&ehk=Xr1hPCJZz9%2fxSJi%2b%2but1utUCSUTZvBigyyl4G2CkXI8%3d&risl=&pid=ImgRaw&r=0');
-    background-size: cover;
+    background-size:cover;
     background-position: center;
+
+   
 }
+
 .landing_page::before {
     content: "";
     position: absolute;
@@ -258,7 +296,7 @@ a{
 }
 
 a:hover{
-    color: crimson;
+    color: rgb(204, 99, 120);
 }
 
 /* Header */
@@ -268,9 +306,8 @@ header{
 }
 
 .navbar{
-    width: 100%;
-    height: 60px;
-    max-width: 1200px;
+   
+    
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -376,9 +413,59 @@ section#hero{
     }
 }
 
+@media (min-width: 577px) {
+    
+    #base_img{
+        max-height: 200px;
+        width: 260px;
+        padding: 10px;
+        align-self: center;
+        display: block;
+            
+    }
+
+}
+
 @media (max-width: 578px) {
     .dropdown_menu{
         left: 2rem;
         width: unset;
     }
+
+    .landing_page{
+        position: relative;
+        width: 100%;
+        height: 400px;
+        /* background-color: #000; */
+        background-image: url('https://th.bing.com/th/id/R.5382c9b4f10fa931f30617be181488e6?rik=T%2beYGhKg0in7hg&riu=http%3a%2f%2fwww.milehighonthecheap.com%2flotc-cms%2fwp-content%2fuploads%2f2011%2f11%2fgift-card.jpg&ehk=Xr1hPCJZz9%2fxSJi%2b%2but1utUCSUTZvBigyyl4G2CkXI8%3d&risl=&pid=ImgRaw&r=0');
+        background-size:auto;
+        background-position: center;
+    }
+    #landing_page_nav{
+        background-color: blue;
+        
+    }
+
+    #base_img{
+        max-height: 150px;
+        width: 200px;
+        padding: 10px;
+        align-self: center;
+        display: block;
+            
+    }
+    #giftcards{
+    padding: 10px; 
+    margin: 10px;
+    max-width:100px;
+    }
+    .col img{
+        max-height: 100px;
+        width: 100px;
+        padding: 10px;
+        align-self: center;
+        display: block;
+    }
+
+    
 }

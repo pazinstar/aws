@@ -1,7 +1,8 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-<br><br>
+<div class="container">
+  <br>
 <div class="row">
   <div class="container"> 
 
@@ -9,13 +10,13 @@
    
             <h3 class="font-weight-bold">Flash sales: </h3><br>
            
-             <h6 style="color: rgb(170, 39, 83);" id="demo"></h6>
+             <h4 style="color: rgb(170, 39, 83);" id="demo"></h4>
         
       </div><br>
       <div class="row">
           <div class="d-flex flex-row  flex-nowrap">
             {% for item in Flash_cards %}
-              <div  class="card card-body shadow p-3  mb-5 bg-body rounded" > 
+              <div id="Flash_cards"  class="card card-body shadow p-3  mb-5 bg-body rounded" > 
                     <h5 style="font-weight: bold; color: blue;"> {{item.cardName}}</h5> 
                     <div class="background-image" style="background-image: url('{{ item.ImageUrl}}'); background-position: center; ">
                     </div>
@@ -33,7 +34,7 @@
 <br><br>
 
 <div class="row">
-  <div class="container-fluid">
+ 
       <div class="row"> 
           <div style="margin: auto;">
               <h5>Gift Cards</h5>
@@ -55,7 +56,7 @@
           </div>
       </div>
       </div> 
-  </div>
+  
 </div> 
 <br><br>
 
@@ -64,27 +65,25 @@
         <div class="row" style="margin:auto;">
 
           {% for item in products %}
-            <div class="col border shadow p-3" style="padding: 10px; margin: 10px;">
-                <div class="row">
-                  <div style="margin: auto;">
-                    {{ item.name }}
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="child-div" style="background-image: url('{{ item.imageURL }}'); margin: auto;"></div>
-                </div>
+            <div class="col  border shadow p-3" id="giftcards">
+                             
+                  <h5> {{ item.name }}</h5>  
+                  <img src="{{ item.imageURL }}" alt="">
+                              
+           
             </div>
           {% endfor %}
 
         </div>
       </div>
     </div>
+</div>
 
 
     
 <script>
 
-  var countDownDate = new Date("Nov 25, 2023 15:37:25").getTime();
+  var countDownDate = new Date("Dec 25, 2023 15:37:25").getTime();
 
   var x = setInterval(function() {
 
